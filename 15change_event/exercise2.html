@@ -1,0 +1,73 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" id="searchInput" placeholder="Search by phone number..." />
+    <ul id="userList">
+    </ul>
+
+    <script>
+        // Declare users array
+        var users = [
+            {
+                name: 'Thinh',
+                phone: '070123123'
+            },
+            {
+                name: 'Hung',
+                phone: '080456456'
+            },
+            {
+                name: 'Hoang',
+                phone: '090123123'
+            }
+        ];
+
+        // Get ul element
+        var userList = document.getElementById('userList');
+        // Get search input box
+        var searchInput = document.getElementById('searchInput');
+
+        // function render: get users array's data and put in ul userList
+        function render(users) {
+            let liArray = users.map(function (user) {
+                return '<li>' + user.name + ' - ' + user.phone + '</li>';
+            })
+
+            userList.innerHTML = liArray.join('');
+        }
+
+        render(users);
+
+        // sự kiện 'change' chỉ xảy ra khi input bị mất focus
+        // sử dụng sự kiện keyup để tìm kiếm người dùng có số điện thoại khớp với nội dung tìm kiếm.
+        // Gợi ý: 
+        // - biến value dưới đây là giá trị của input tại thời điểm gõ phím
+        // - sử dụng array.filter và string.indexOf để lọc users array, trả về những phần tử có số điện thoại chứa string lưu trong biến `value`
+        // Sử dụng Chrome Developer Tools để xem giá trị hiển thị ra sau mỗi lần gõ
+        searchInput.addEventListener('keyup', function (event) {
+            var value = searchInput.value;
+            // Lấy thông tin của phone sau từng lần nhập nhờ event: keyup - được gọi khi bạn nhả key đó ra
+
+            console.log(value);
+
+            // // Filter user với phone tương ứng, dùng indexOf trả về giá trị value tương ứng trong phone (nếu kết quả < 0 nghĩa là phone sai).
+            var filteredArr = users.filter(function (user) {
+                return user.phone.indexOf(value) >= 0;
+            });
+
+            console.log(filteredArr);
+
+            // Sử dụng hàm render để xử lý thông tin user đã được filter ở trên lên giao diện HTML.
+            render(filteredArr);
+        })
+
+    </script>
+</body>
+
+</html>

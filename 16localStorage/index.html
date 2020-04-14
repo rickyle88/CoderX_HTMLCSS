@@ -1,0 +1,94 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODO List</title>
+</head>
+
+<body>
+
+    <input type="text" id="new-item" />
+    <button onclick="addItem()">Add</button>
+
+
+    <ul id="todo-list">
+        <!-- <li>Take shower</li>
+        <li>Have a walk</li>
+        <li>Go to bed</li> -->
+    </ul>
+
+    <!-- Internal javascript -->
+    <script>
+
+        // Declare key to save all data to local storage
+        let storageKey = 'todoList';
+
+        // let todoList = [
+        //     'Take shower',
+        //     'Have a walk',
+        //     'Go to bed'
+        // ];
+
+        // When button is clicked, get todoList data from Local Storge
+        let dataString = localStorage.getItem(storageKey);
+        let todoList;
+        if(dataString){
+            todoList = JSON.parse(dataString);
+        }else{
+            todoList = [];
+        }
+         
+
+        function addItem() {
+            // Get value of the input
+            let input = document.getElementById('new-item');
+            var newItem = input.value;
+
+            // Add to todoList array
+            if (newItem !== '') {
+                todoList.push(newItem);
+
+                
+            }
+
+            // Re-render
+            render();
+
+            // Clear input
+            input.value = '';
+
+            // Save all data to local storage
+            // localStorage.getItem(storageKey) returns array separate by comma : a,b,c,d
+            // A common use of JSON is to exchange data to/from a web server.
+            // When sending data to a web server, the data has to be a string.
+            // 
+            // localStorage.getItem('todoList')
+            // "["Take shower","Have a walk","Go to bed"]"
+            localStorage.setItem(storageKey, JSON.stringify(todoList));
+
+            
+
+        }
+
+        function render() {
+            let htmlList = document.getElementById('todo-list');
+
+            // Create new array that contains list of li elements
+            let content = todoList.map(function (item) {
+                return '<li>' + item + '</li>';
+            })
+
+            // Convert content array to string and assign to htmlList
+            htmlList.innerHTML = content.join('');
+        }
+
+        render();
+
+
+
+
+    </script>
+</body>
+
+</html>

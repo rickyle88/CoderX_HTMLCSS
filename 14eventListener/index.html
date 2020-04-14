@@ -1,0 +1,85 @@
+<!-- $0.addEventListener - (Observer design pattern) -->
+<!-- Design pattern -->
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODO List</title>
+</head>
+
+<body>
+
+    <input type="text" id="new-item" />
+    <button id="add-btn">Add</button>
+
+
+    <ul id="todo-list">
+        <!-- <li>Take shower</li>
+        <li>Have a walk</li>
+        <li>Go to bed</li> -->
+    </ul>
+
+    <!-- Internal javascript -->
+    <script>
+
+        let todoList = [
+            'Take shower',
+            'Have a walk',
+            'Go to bed'
+        ];
+
+        let addBtn = document.getElementById('add-btn');
+
+        // Method 1
+        // addBtn.onclick = addItem;
+
+        // Method 2: can add multiple event
+        addBtn.addEventListener('click', addItem);
+        addBtn.addEventListener('click', function(){
+            console.log('Add button is clicked');
+            // anonymous function
+        });
+        // addBtn triggers click event
+        // click event is triggered
+        // event listener
+
+        function addItem() {
+            // Get value of the input
+            let input = document.getElementById('new-item');
+            var newItem = input.value;
+
+            // Add to todoList array
+            if (newItem !== '') {
+                todoList.push(newItem);
+            }
+
+            // Re-render
+            render();
+
+            // Clear input
+            input.value = '';
+        }
+
+        function render() {
+            let htmlList = document.getElementById('todo-list');
+
+            // Create new array that contains list of li elements
+            let content = todoList.map(function (item) {
+                return '<li>' + item + '</li>';
+            })
+
+            // Convert content array to string and assign to htmlList
+            htmlList.innerHTML = content.join('');
+        }
+
+        render();
+
+
+
+
+    </script>
+</body>
+
+</html>

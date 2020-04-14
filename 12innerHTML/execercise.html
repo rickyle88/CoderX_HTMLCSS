@@ -1,0 +1,42 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 
+- Sử dụng getElementsByTagName() để lấy ra danh sách các <p> có class là 'foo'
+- Lặp qua các phần tử và thay đổi nội dung của từng phần tử bằng cách append (thêm vào cuối) một đường link tới coders.tokyo site
+-->
+
+    <p class="foo abc">Đây là paragraph thứ một</p>
+    <p class="foo">Đây là paragraph thứ hai</p>
+    <p class>Đây là paragraph thứ ba</p>
+    <p class="foo">Đây là paragraph thứ tư</p>
+
+    <script>
+
+        // Method 1
+
+        let arrParagraph = document.getElementsByClassName('foo');
+
+        // let arrFoo = 
+
+        // for(let i = 0; i < arrParagraph.length; i++){
+        //     arrParagraph[i].innerHTML += ' <a href="https://www.google.com">Google</a>';
+        // }
+
+        // Method 2
+        let pElements = document.getElementsByTagName('p');
+        for(let i = 0; i < pElements.length; i++){
+            if(pElements[i].className.includes('foo')){
+                pElements[i].innerHTML += ' <a href="https://www.google.com">Google</a>';
+            }
+        }
+    </script>
+</body>
+
+</html>

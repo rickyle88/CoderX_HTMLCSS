@@ -1,0 +1,86 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <span>Age</span>
+    <select id="age-filter">
+        <option>---</option>
+        <option>20</option>
+        <option>19</option>
+        <option>18</option>
+    </select>
+
+    <table id="student-table">
+        <!-- <tr>
+            <td>Minh</td>
+            <td>20</td>
+        </tr> -->
+    </table>
+    
+    <script>
+        let students = [
+            {name: 'Minh', age: 20},
+            {name: 'Hoang', age: 20},
+            {name: 'Hai', age: 18},
+            {name: 'Duy', age: 18},
+            {name: 'Tung', age: 19}
+        ]
+        
+        let ageFilter = document.getElementById('age-filter');
+
+        ageFilter.addEventListener('change', onAgeFilterChange);
+
+        function onAgeFilterChange(){
+            // Get current value on ageFilter dropdown
+            let selectedAge = ageFilter.value;
+            // string type
+
+            console.log(parseInt(selectedAge) === 18);
+
+            // Filter students list by the selected value
+            let filteredStudents = students.filter(function(student){
+                return student.age === parseInt(selectedAge);
+            })
+           
+            // Render filteredStudents to DOM
+            render(filteredStudents);
+            
+        }
+
+
+
+        // render to convert array students to tr and td elements
+        function render(students){
+            let studentTable = document.getElementById('student-table');
+
+            let tmpArr = students.map(function(student){
+                return '<tr><td>' + student.name + '</td><td>' + student.age + '</td></tr>';
+            })
+
+            studentTable.innerHTML = tmpArr.join('');
+
+            
+        }
+
+        render(students);
+
+        // console.log(render(students));
+    </script>
+
+    <!-- 
+Cho em hỏi. Chỗ option lúc chạy lần đầu là 20. Xong mình nhấn vô đó chọn 20. Nó sẽ không load lại. Chỉ khỉ chọn các option khác rồi quay lại option 20 thì nó mới load. Em muốn lúc đầu chọn option 20 xong nhấn lại option 20 nó vẫn load thì phải làm sao ???.
+
+
+
+Hoang Vu
+Hoang Vu
+2 weeks ago
+Bạn nên hiểu thế này, vì mình đang bind cái "change" cho cái select element đó, nên khi mới hiển thị nó đã có value = 20 rồi nên dù bạn có chọn 20 thì value vẫn vậy => không trigger cái onAgeFilterChange nhé, nên nó chỉ filter khi mà cái value của select element thay đổi thôi.
+
+     -->
+</body>
+</html>

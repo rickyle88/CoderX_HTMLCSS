@@ -1,0 +1,71 @@
+<!-- // 1. Tạo một REST api server sử dụng json-server
+// 2. Đọc documentation của json-server và axios, tìm hiểu các method GET, POST, PUT, PATCH, DELETE
+// 3. Làm các ví dụ sử dụng axios để gửi các request lên json-server để tạo object mới, update 1 object với dữ liệu mới, xoá 1 object
+// Lưu ý: đây là một bài khó nếu bạn là beginner, tuy nhiên, khi hiểu được bài này bạn sẽ có thể lên 1 level mới (beginner cao cấp).
+// Hãy dành 1 ngày để đọc, tìm hiểu, thử. Sau 1 ngày nếu bạn không làm được thì có thể hỏi trên Coders.Tokyo Slack hoặc JsLand. -->
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>Hello world</p>
+    <!-- Axios package -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    
+    <script>
+        let url = 'http://localhost:9081/todos';
+
+        // GET
+        axios.get(url)
+            .then(function(res){
+                console.log(res);
+                document.write(res.data[0].id);
+                document.write(res.data[0].content);
+            })
+            .catch(function(err){
+
+            })
+
+        // POST
+        let newObject = {};
+        newObject.id = Math.round(Math.random() * 100000);
+        newObject.content = 'New content 324';
+
+        axios.post(url,newObject)
+            .then(function(res){
+                console.log('New data added ');
+                // console.log(res);
+            })
+
+        // PUT - update an object
+        // See how I had to specify which cat I wanted to update (by providing the unique URL for that cat) and also supply the specific data I want updated (the name)
+        // Then the server would send a response (it could be anything from "The update was successful." to a JSON representation of the updated cat's data.
+
+        // Remember, a PUT request should only be used for updating data that already exists. If you want to add new data (which is what it looks like a little bit in your example, since you were pointing the request to just /cats without an ID), you should instead use a POST request. POST requests are intended for adding new data and PUT requests are intended for updating existing data.
+
+        let url1 = 'http://localhost:9081/todos/1'
+        let newData = {id: 15531, content: 'New data'};
+        axios.patch(url1, newData)
+            .then(function(res){
+                console.log(res);
+            })
+            .catch(function(err){
+                console.log('Error: ' + err);
+            })
+
+
+        // DELETE - delete first object from array 
+        axios.delete(url1)
+            .then(function(res){
+                console.log(res);
+            })
+            .catch(function(err){
+                console.log('Error: ' + err);
+            })
+    </script>
+</body>
+</html>
